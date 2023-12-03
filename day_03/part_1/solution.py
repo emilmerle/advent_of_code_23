@@ -17,7 +17,7 @@ import re
 # second idea:
 # loop through lines and note only the indices of symbols
 # loop again and check for every number
-# -> less memory needed but two loops
+# -> less memory needed in theory but two loops
 
 filename = "./../input_data"
 # only numbers, "." and the newline character do not count as symbols, all other are symbols here
@@ -30,6 +30,7 @@ def main():
     with open(filename, "r") as f:
         line_counter = 0
         sum = 0
+        # find all indices of all symbols
         for line in f:
             symbol_index_list.append(find_indices_of_symbols(line))
         f.seek(0)
