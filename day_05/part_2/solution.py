@@ -1,4 +1,4 @@
-filename = "./../input_data"
+filename = "./../test_input_data"
 
 # now the list of seeds describe ranges of seeds
 
@@ -41,22 +41,22 @@ def main():
                 exit("Edge Case found!!!")
         # print(map_dict)
         # print(combine_two_intervals_and_shift((5,15), (10,20), 7))
+        for seed in seed_ranges:
+            print(seed)
+            current_values = [seed]
+            for map in map_order:
+                print(f"MAP {map} STARTING")
+                next_values = []
+                print(current_values)
+                for tuple in current_values:
+                    for map_value in map_dict[map]:
+                        all_tuples = combine_two_intervals_and_shift(tuple, map_value, map_dict[map][map_value])
+                        next_values += [x for x in all_tuples if x not in next_values]
+                        # print(next_values)
+                current_values = next_values
 
-        current_seeds = seed_ranges
-        for map in map_order:
-            print(map)
-            temp_values = []
-            print(len(current_seeds))
-            for seed in current_seeds:
-                for interval in map_dict[map]:
-                    # print(interval)
-                    # print(map, seed, interval)
-                    temp_values += [x for x in combine_two_intervals_and_shift(seed, interval, map_dict[map][interval]) if x not in temp_values]
-                    # print(temp_values)
-            current_seeds = temp_values
+        #print(current_values)
         
-        print(current_seeds)
-        print(min([min(x[0], x[1]) for x in current_seeds]))
         return 
 
             
@@ -77,30 +77,32 @@ def combine_two_intervals_and_shift(first: tuple, second: tuple, shifting_distan
 # case 4: first interval overlaps second completely -> this should cover the case when intervals match
 # case 5: first interval completely in second interval
 
+    START = 0
+    END = 1
     # case 1
-    if first[1] < second[0] or first[0] > second[1]:
+    if first[START] < second[START] or first[START] > second[END]:
         return [first] # this tuple can stay as it is
 
-    # case 2
-    elif first[0] < second[0] and (first[1] >= second[0] or first[1] <= second[1]) :
-        left_tuple = (first[0], second[0] - 1) # left tuple can stay as it is
-        right_tuple = (second[0] + shifting_distance, first[1] + shifting_distance) # right tuple has to be mapped
+    # 
+    elif first[START] < second[START] and first[END] >= second[START] and first[END] <= second[END] :
+        left_tuple = (first[START], second[START] - END) # left tuple can stay as it is
+        right_tuple = (second[START] + shifting_distance, first[END] + shifting_distance) # right tuple has to be mapped
         return [left_tuple, right_tuple]
     # case 3:
-    elif first[0] >= second[0] and (first[0] <= second[1] or first[1] > second[1]):
-        left_tuple = (first[0] + shifting_distance, second[1] + shifting_distance) # left tuple has to be mapped
-        right_tuple = (second[1] + 1, first[1]) # right tuple can stay as it is
+    elif first[START] >= second[START] and first[START] <= second[END] and first[END] > second[END]:
+        left_tuple = (first[START] + shifting_distance, second[END] + shifting_distance) # left tuple has to be mapped
+        right_tuple = (second[END] + 1, first[END]) # right tuple can stay as it is
         return [left_tuple, right_tuple]
     # case 4:
-    elif first[0] <= second[0] and first[1] >= second[1]:
-        left_tuple = (first[0], second[0] - 1) # left tuple can stay as it is
-        middle_tuple = (second[0] + shifting_distance, second[1] + shifting_distance) # middle tuple has to be mapped
-        right_tuple = (second[1] + 1, first[1]) # right tuple can stay as it is
+    elif first[START] <= second[START] and first[END] >= second[END]:
+        left_tuple = (first[START], second[START] - END) # left tuple can stay as it is
+        middle_tuple = (second[START] + shifting_distance, second[END] + shifting_distance) # middle tuple has to be mapped
+        right_tuple = (second[END] + 1, first[END]) # right tuple can stay as it is
         return [left_tuple, middle_tuple, right_tuple]
     
     # case 5:
-    elif first[0] > second[0] and first[1] < second[1]:
-        return [(first[0] + shifting_distance, first[1] + shifting_distance)] # this has to be mapped
+    elif first[START] > second[START] and first[END] < second[END]:
+        return [(first[START] + shifting_distance, first[END] + shifting_distance)] # this has to be mapped
     else:
         print(first, second, shifting_distance)
         exit("ERROR!")
