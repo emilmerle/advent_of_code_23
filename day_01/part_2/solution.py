@@ -7,7 +7,7 @@ def main():
     # for example: in "threeight" we should find "three" AND "eight"
     # The ?=... in the pattern assures overlapping words are found
     regex_pattern = "(?=(one|two|three|four|five|six|seven|eight|nine|[1-9]))"
-    filename = "./input_data"
+    filename = "./../input_data_ole"
 
     with open(filename, "r") as f:
         sum = 0
