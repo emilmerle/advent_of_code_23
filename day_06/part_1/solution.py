@@ -5,7 +5,6 @@ filename = "./../input_data"
 
 
 def main():
-    races = {}
     with open(filename, "r") as f:
         times = [int(x) for x in f.readline().split()[1:]]
         distances = [int(x) for x in f.readline().split()[1:]]
