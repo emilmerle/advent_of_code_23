@@ -2,7 +2,7 @@ import re
 
 
 def main():
-    filename = "./input_data"
+    filename = "./../input_data_ole"
     with open(filename, "r") as f:
         counter = 0
         sum = 0

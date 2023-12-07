@@ -44,9 +44,26 @@ def main():
                 exit("Edge Case found!!!")
         
         # print(map_dict)
+        not_calculated = seed_ranges
+        for map in map_order:
+            print("Starting Map:", map)
+            print("With values:", not_calculated)
+            fertige_tuple = []
+            counter = 0
+            while len(not_calculated) > 1:
+                print(not_calculated)
+                tuple = not_calculated.pop(0) # erstes tuple poppen
+                # für jedes Tuple in der map tabelle die destination tuples ausrechnen
+                for map_tuple in map_dict[map]:
+                    shifting_distance = map_dict[map][map_tuple]
+                    fertiges, todo_tuple = combine_two_intervals_and_shift(tuple, map_tuple, shifting_distance) # die map tuple dafür ausrechnen
+                    fertige_tuple += [x for x in fertiges if x not in fertige_tuple] # die fertigen in fertig liste
+                    not_calculated += [x for x in todo_tuple if x not in not_calculated] # die weiteren in not_calculated_wieder
+                    counter += 1
+            not_calculated = fertige_tuple
 
-
-        print(other_combine_and_shift((10,20), (15,25)))
+        print(not_calculated)
+        # print(other_combine_and_shift((10,20), (15,25)))
         
         return 
 
