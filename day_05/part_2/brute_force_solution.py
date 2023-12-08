@@ -1,7 +1,7 @@
 import sys
 
 
-filename = "./../test_input_data"
+filename = "./../input_data"
 
 
 def main():
@@ -32,27 +32,32 @@ def main():
             else:
                 exit("Edge Case found!!!")
 
-        lowest_location = sys.maxsize
         
+        # für jede Seed range:
+        #       für jeden Seed
+        #           currentvalue = seed
+        #           für jede Map:
+        #               für jede range in der map:
+        #                   ist der currentvalue in der range:
+        #                       ja: currentvalue mappen und nächste map
+
+        lowest_location = sys.maxsize
         for seed_range in seed_ranges:
-            print(seed_range)
+            print("Starting input seed range:", seed_range)
             for seed in range(seed_range[0], seed_range[1]):
-                print("Seed:", seed)
                 current_value = seed
+                print("Current value:", current_value)
                 for map in map_order:
                     for single_range in map_dict[map]:
-                        if single_range[0][0] <= seed < single_range[0][1]:
-                            print("Seed is in range:")
-                            current_value = seed + single_range[1]
+                        if single_range[0][0] <= current_value < single_range[0][1]:
+                            current_value = current_value + single_range[1]
                             break
-                    else:
-                        continue
-                    break
-                print(lowest_location)
-            if current_value < lowest_location:
-                lowest_location = lowest_location
+                        
+                if current_value < lowest_location:
+                    lowest_location = current_value
+            print("Current lowest location:", lowest_location)
         
-        print(lowest_location)
+        print("Lowest location:", lowest_location)
 
         """ for seed in seeds:
             # print(seed)
