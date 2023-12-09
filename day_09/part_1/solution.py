@@ -11,7 +11,6 @@ def main():
         final_sum = 0
         for sequence in input_sequences:
             next_value = analyze_sequence(sequence)
-            print(sequence, next_value)
             final_sum += next_value
 
         print(f"The final sum of all next values is {final_sum}.")
