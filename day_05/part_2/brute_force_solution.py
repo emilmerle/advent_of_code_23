@@ -39,7 +39,6 @@ def main():
                 continue
             else:
                 exit("Edge Case found!!!")
-        
 
         lowest_value = sys.maxsize
         for seed_range in seed_ranges:
@@ -56,15 +55,17 @@ def main():
 
         print(lowest_value)
 
-            
+
 def return_mapped_value(number: int, map_mapping_ranges: dict) -> int:
     for range, shifting_value in map_mapping_ranges.items():
         if number >= range[START] and number < range[END]:
             return number + shifting_value
     return number
 
+
 def get_distance_for_shifting(source: tuple, destination: tuple) -> int:
     return destination[0] - source[0]
+
 
 def get_seeds(seed_line: str) -> list:
     seed_list = seed_line[7:].split()

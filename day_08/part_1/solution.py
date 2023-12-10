@@ -1,5 +1,6 @@
 filename = "./../input_data"
 
+
 def main():
     with open(filename, "r") as f:
         instructions = f.readline()[:-1]
@@ -26,10 +27,9 @@ def main():
                 current_node = node_dict[current_node][0]
             elif instruction == "R":
                 current_node = node_dict[current_node][1]
-        
+
         print(steps, "are required to get to ZZZ")
-            
-        
+
 
 if __name__ == "__main__":
     main()

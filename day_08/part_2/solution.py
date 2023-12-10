@@ -1,5 +1,7 @@
 from math import lcm
+
 filename = "./../input_data"
+
 
 def main():
     with open(filename, "r") as f:
@@ -38,9 +40,8 @@ def main():
                     current_node = node_dict[current_node][1]
             step_list.append(steps)
 
-
         print(f"The number of steps to get to the end nodes is: {lcm(*step_list)}.")
-        
+
 
 if __name__ == "__main__":
     main()

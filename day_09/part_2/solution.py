@@ -30,7 +30,7 @@ def analyze_sequence(sequence: list):
         current_sequence = next_sequence
 
     for index in range(len(sequences) - 2, -1, -1):
-        prev_value = sequences[index][0] - sequences[index+1][0]
+        prev_value = sequences[index][0] - sequences[index + 1][0]
         sequences[index].insert(0, prev_value)
 
     return sequences[0][0]
